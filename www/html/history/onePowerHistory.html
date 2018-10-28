@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+    <script src="../../js/jQuery3.2.1.js"></script>
+    <script src="../../config.js"></script>
+    <script src="../../js/adddate.js"></script>
+    <script src="../../js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link href="../../js/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <script src="../../js/echarts/echarts.min.js"></script>
+<style>
+*{ 
+	padding:0;
+	margin:0;
+}
+
+.title{
+	text-align:left;
+	line-height:60px;
+	font-size:16px;
+	width:100%;
+	height:60px;
+	background-color:rgb(153,153,153);
+}
+
+/*时间选择开始*/
+.timetable{ 
+	position:absolute;
+	top:70px;
+	left:36px;
+	font-size:18px;
+}
+.timeline{ 
+	position:absolute;
+	top:110px;
+	left:35px;
+	right:90px;
+	color:rgb(204,204,204);
+}
+/*时间选择结束*/
+
+/*电压开始*/
+.voltage{ 
+	width:100%;
+	height:202px;
+}
+
+.VchartPhoto{
+    background-color: #000000 !important;
+    height:400px;
+    position:absolute;
+    top:30%;
+    left:60px;
+    right:86px;
+    border-radius:15px;
+
+}
+/*电压结束*/
+
+/*电流开始*/
+.current{ 
+	width:100%;
+	height:196px;
+}
+
+.CchartTextLeft{ 	
+	position:absolute;
+	top:508px;  /*96+202*/
+	left:65px;
+}
+.CchartTextRight{ 
+	position:absolute;
+	top:508px;
+	right:86px;
+}
+
+.Cimg{ 
+	position:absolute;
+	top:506px;
+	left:32px;
+}
+.line2{ 
+	border:dotted;
+	position:absolute;
+	top:516px;/*104+202*/
+	left:129px;
+	right:126px;
+}
+.CchartPhoto{
+    height:300px;
+    background-color:#000000 !important;
+    position:absolute;
+    top:540px;
+    left:60px;
+    right:86px;
+    border-radius:15px;
+}
+/*电流结束*/
+/*温度开始*/
+.temperature{ 
+	width:100%;
+	height:196px;
+}
+
+.TchartTextLeft{ 	
+	position:absolute;
+	top:914px;  /*298+196*/
+	left:65px;
+}
+.TchartTextRight{ 
+	position:absolute;
+	top:914px;
+	right:86px;
+}
+
+.Timg{ 
+	position:absolute;
+	top:910px;
+	left:32px;
+}
+.line3{ 
+	border:dotted;
+	position:absolute;
+	top:922px;/*306+196*/
+	left:129px;
+	right:126px;
+}
+.TchartPhoto{
+    height:300px;
+    background-color:#000000 !important;
+    position:absolute;
+    top:948px;
+    left:60px;
+    right:86px;
+    border-radius:15px;
+}
+/*温度结束*/
+
+</style>
+</head>
+<body>
+<div class="title">一号电源————储能电源主控单元</div>
+<div class="text">
+	<!--时间选择-->
+	<div class="timetable">
+   	    起始日期：<input type="text" style="width: 25%;" readonly="readonly"  value="1970-01-01 08:54:00" id="start_time" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')">
+        截止日期：<input type="text" style="width: 25%;" readonly="readonly"  value="1970-01-01 09:55:13" id="end_time" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')">
+        <button type="button" id="find_history">查询</button>
+	</div>
+    
+    <!--图表-->
+    <div class="container">
+    	<div class="voltage">
+        <hr class="timeline">
+        <div class="row">
+            <div class="VchartPhoto col-md-12 .col-lg-12" id="VchartPhoto">
+            电压图
+            </div>
+   		</div>  
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var VoltChart = echarts.init(document.getElementById('VchartPhoto'));//电压图
+        VchartOption = {
+            backgroundColor:'rgb(204,204,204)',
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['电压','电流','温度'],
+                itemWidth:10,//图例的宽度
+                itemHeight:10,//图例的高度
+                textStyle:{//图例文字的样式
+                    fontSize:16,
+                    color:['#00FF00','#FF0000','#00FFFF']
+                }
+            },
+                xAxis: {
+                    type: 'category',
+                    data:  [],
+                    axisLine:{
+                        lineStyle:{
+                            show:true,
+                            color:'#00FF00',
+                            width:1,//这里是为了突出显示加上的
+                        }
+                    },
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+                axisLine:{
+                    lineStyle:{
+                        show:true,
+                        color:'#00FF00',
+                        width:1,//这里是为了突出显示加上的
+                    }
+                },
+            },
+            series: [{
+                name: '电压',
+                type: 'line',
+                showSymbol: true,
+                hoverAnimation: false,
+                data: [],
+                smooth:true,
+                itemStyle : {
+                    normal : {
+                        lineStyle:{
+                            color:'#00FF00'
+                        }
+                    }
+                },
+            },
+                {
+                    name: '电流',
+                    type: 'line',
+                    showSymbol: true,
+                    hoverAnimation: false,
+                    data: [],
+                    smooth:true,
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#FF0000'
+                            }
+                        }
+                    },
+                },
+                {
+                    name: '温度',
+                    type: 'line',
+                    showSymbol: true,
+                    hoverAnimation: false,
+                    data: [],
+                    smooth:true,
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#00FFFF'
+                            }
+                        }
+                    },
+                }
+                ]
+        };
+        VoltChart.setOption(VchartOption);
+
+
+        $("#find_history").on("click",function () {
+
+            var start_time = $("#start_time").val();
+            var end_time = $("#end_time").val();
+
+            start_time = start_time.substring(0,19);
+            start_time = start_time.replace(/-/g,'/');
+            var start_timestamp = new Date(start_time).getTime();
+
+            end_time = end_time.substring(0,19);
+            end_time = end_time.replace(/-/g,'/');
+            var end_timestamp = new Date(end_time).getTime();
+
+            console.log("...start_time...")
+            console.log(start_timestamp)
+            console.log("...end_time...")
+            console.log(end_timestamp)
+
+
+
+            // var start_time_arr = start_time.split(" ");
+            // var end_time_arr = end_time.split(" ");
+            // var start_time_arr_fenduan = start_time_arr[0].split("-")
+            // var end_time_arr_fenduan = end_time_arr[0].split("-")
+
+            // var start_time_month_quling = start_time_arr_fenduan[1].replace(/\b(0+)/gi,"")
+            // var end_time_month_quling = end_time_arr_fenduan[1].replace(/\b(0+)/gi,"")
+
+            // var starttime_month_date_year = start_time_month_quling+"-"+start_time_arr_fenduan[2]+"-"+start_time_arr_fenduan[0]
+            // var endtime_month_date_year = end_time_month_quling+"-"+end_time_arr_fenduan[2]+"-"+end_time_arr_fenduan[0]
+
+            // var start_time_finsh = starttime_month_date_year + " " + start_time_arr[1]
+
+            // var end_time_finsh = endtime_month_date_year + " " + end_time_arr[1]
+            // console.log("处理后开始时间"+start_time_finsh)
+            // console.log("处理后结束时间"+end_time_finsh)
+
+            window.parent.document.getElementById("s").value = start_timestamp;
+            window.parent.document.getElementById("e").value = end_timestamp;
+            window.parent.send_time_and_id(1);
+            //var socket = new WebSocket(config.ipAdress)
+            // var a =  {"HistoryData":
+            //         {"position":
+            //                 {"Power": "2","module": " ","isblock": " ","cmd": "#"},
+            //             "during": {"startTime": start_time_finsh,"endTime": end_time_finsh}
+            //         }
+            // };
+
+            // sendData1 = function(){
+            //    return start_time_finsh, end_time_finsh
+            // }
+            // socket.onopen = function(){
+            //     console.log('连接成功')
+            //     socket.send(
+            //         JSON.stringify(a)
+            //     )
+            // }
+            // socket.onclose = function(){
+            //     console.log('连接关闭')
+            // }
+
+            // socket.onmessage = function(evt){
+            //     _dealMsg(evt)
+            //     // console.log("接受到的数据"+evt.data)
+            // }
+            // socket.onerr = function(){
+            //     console.log('连接发生错误')
+            // }
+
+
+           _dealMsg = function (evt) {
+               console.log("接受到的数据" + evt.data)
+               var dataStr = evt.data
+               var dataJson =  JSON.parse(dataStr)
+               var VxAxisData = [];  //电压横轴数据
+               var VseriesData = [];  //电压纵轴数据
+               var CxAxisData = [];  //电流横轴数据
+               var CseriesData = [];  //电流纵轴数据
+               var TxAxisData = [];  //温度横轴数据
+               var TseriesData = [];  //温度纵轴数据
+               for (i in dataJson.PowerState) {
+                   voltDataii = dataJson.PowerState[i];
+                   time_fenge = voltDataii.time.split(" ")
+                   VxAxisData.unshift(time_fenge[1])
+                   VseriesData.unshift(parseFloat(voltDataii.CMSVolt))
+                   CxAxisData.unshift(time_fenge[1])
+                   CseriesData.unshift(parseFloat(voltDataii.CMSCur))
+                   TxAxisData.unshift(time_fenge[1])
+                   TseriesData.unshift(parseFloat(voltDataii.CMSTemp))
+               }
+
+               VchartOption.xAxis.data =
+
+               VchartOption.series[0].data = VseriesData
+               VchartOption.series[1].data = CseriesData
+               VchartOption.series[2].data = TseriesData
+               console.log("加载的data是" + VseriesData)
+               VoltChart.setOption(VchartOption);
+
+               console.log("option里面的数据是：" + VchartOption.series[0].data)
+           }
+        })
+    })
+</script>
+</body>
+</html>

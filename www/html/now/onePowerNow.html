@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="../../js/jQuery3.2.1.js"></script>
+    <script src="../../config.js"></script>
+    <script src="../../js/main/onePowerNow.js" type="text/javascript"></script>
+    <script src="../../js/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+	//var test3 = test;
+	function deal_data1(data){
+		deal(data);
+	}
+</script>
+<style>
+*{ 
+	padding:0;
+	margin:0;
+}
+
+.title{
+	text-align:left;
+	line-height:60px;
+	font-size:16px;
+	width:100%;
+	height:60px;
+	background-color:rgb(153,153,153);
+}
+
+/*电压开始*/
+.voltage{ 
+	width:100%;
+	height:400px;
+}
+
+.VchartPhoto{
+    background-color: #000000 !important;
+	height:400px;
+	position:absolute;
+	top:25%;
+	left:60px;
+	right:80px;
+	border-radius:15px;
+}
+/*电压结束*/
+</style>
+
+</head>
+
+<body>
+<div class="title">一号电源————储能电源主控单元</div>
+<div class="container">
+    <div class="voltage">
+		<div class="VchartPhoto" id="oneVPhoto"> 
+        电压图
+   		</div>  
+    </div>
+</div>
+</body>
+</html>
