@@ -1,108 +1,21 @@
 class Data1{
-	constructor(Module_Voltage, Module_Capacitance_Temperature, Module_Board_Temperature, 
-				Module_Voltage_Overvoltage_Abnormal_Bit0, Module_Voltage_Overvoltage_Abnormal_Bit1,
-				Module_Voltage_Overvoltage_Abnormal_Bit2, Module_Voltage_Overvoltage_Abnormal_Bit3,
-				Module_Voltage_Overvoltage_Abnormal_Bit4, Module_Voltage_Overvoltage_Abnormal_Bit5,
-				Module_Voltage_Overvoltage_Abnormal_Bit6, Module_Voltage_Overvoltage_Abnormal_Bit7,
-				Module_Capacity_Abnormal_Bit0, Module_Capacity_Abnormal_Bit1,
-				Module_Capacity_Abnormal_Bit2, Module_Capacity_Abnormal_Bit3,
-				Module_Capacity_Abnormal_Bit4, Module_Capacity_Abnormal_Bit5,
-				Module_Capacity_Abnormal_Bit6, Module_Capacity_Abnormal_Bit7,
-				Voltage_Equalization_Fault, Voltage_Sampling_Error, Temperature_Sampling_Error,
-				Abnormal_Voltage_Data,
-				Module_Voltage_Overvoltage_Warning_Bit0, Module_Voltage_Overvoltage_Warning_Bit1,
-				Module_Voltage_Overvoltage_Warning_Bit2, Module_Voltage_Overvoltage_Warning_Bit3,
-				Module_Voltage_Overvoltage_Warning_Bit4, Module_Voltage_Overvoltage_Warning_Bit5,
-				Module_Voltage_Overvoltage_Warning_Bit6, Module_Voltage_Overvoltage_Warning_Bit7){
-		//this.name = name
+	constructor(id, Module_Voltage, Module_Capacitance_Temperature, Module_Board_Temperature){
+		this.id = id;
 		this.Module_Voltage = Module_Voltage;											//int16
 		this.Module_Capacitance_Temperature = Module_Capacitance_Temperature;			//int8
 		this.Module_Board_Temperature = Module_Board_Temperature;						//int8
-		this.Module_Voltage_Overvoltage_Abnormal_Bit0 = Module_Voltage_Overvoltage_Abnormal_Bit0;//int8
-		this.Module_Voltage_Overvoltage_Abnormal_Bit1 = Module_Voltage_Overvoltage_Abnormal_Bit1;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit2 = Module_Voltage_Overvoltage_Abnormal_Bit2;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit3 = Module_Voltage_Overvoltage_Abnormal_Bit3;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit4 = Module_Voltage_Overvoltage_Abnormal_Bit4;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit5 = Module_Voltage_Overvoltage_Abnormal_Bit5;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit6 = Module_Voltage_Overvoltage_Abnormal_Bit6;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit7 = Module_Voltage_Overvoltage_Abnormal_Bit7;
-		this.Module_Capacity_Abnormal_Bit0 = Module_Capacity_Abnormal_Bit0;				//int8
-		this.Module_Capacity_Abnormal_Bit1 = Module_Capacity_Abnormal_Bit1;
-		this.Module_Capacity_Abnormal_Bit2 = Module_Capacity_Abnormal_Bit2;
-		this.Module_Capacity_Abnormal_Bit3 = Module_Capacity_Abnormal_Bit3;
-		this.Module_Capacity_Abnormal_Bit4 = Module_Capacity_Abnormal_Bit4;
-		this.Module_Capacity_Abnormal_Bit5 = Module_Capacity_Abnormal_Bit5;
-		this.Module_Capacity_Abnormal_Bit6 = Module_Capacity_Abnormal_Bit6;
-		this.Module_Capacity_Abnormal_Bit7 = Module_Capacity_Abnormal_Bit7;
-		this.Voltage_Equalization_Fault = Voltage_Equalization_Fault;					//bool
-		this.Voltage_Sampling_Error = Voltage_Sampling_Error;							//bool
-		this.Temperature_Sampling_Error = Temperature_Sampling_Error;					//bool
-		this.Abnormal_Voltage_Data = Abnormal_Voltage_Data;								//bool
-		this.Module_Voltage_Overvoltage_Warning_Bit0 = Module_Voltage_Overvoltage_Warning_Bit0;//int8
-		this.Module_Voltage_Overvoltage_Warning_Bit1 = Module_Voltage_Overvoltage_Warning_Bit1;
-		this.Module_Voltage_Overvoltage_Warning_Bit2 = Module_Voltage_Overvoltage_Warning_Bit2;
-		this.Module_Voltage_Overvoltage_Warning_Bit3 = Module_Voltage_Overvoltage_Warning_Bit3;
-		this.Module_Voltage_Overvoltage_Warning_Bit4 = Module_Voltage_Overvoltage_Warning_Bit4;
-		this.Module_Voltage_Overvoltage_Warning_Bit5 = Module_Voltage_Overvoltage_Warning_Bit5;
-		this.Module_Voltage_Overvoltage_Warning_Bit6 = Module_Voltage_Overvoltage_Warning_Bit6;
-		this.Module_Voltage_Overvoltage_Warning_Bit7 = Module_Voltage_Overvoltage_Warning_Bit7;
 	}
 
-	setting(Module_Voltage, Module_Capacitance_Temperature, Module_Board_Temperature, 
-				Module_Voltage_Overvoltage_Abnormal_Bit0, Module_Voltage_Overvoltage_Abnormal_Bit1,
-				Module_Voltage_Overvoltage_Abnormal_Bit2, Module_Voltage_Overvoltage_Abnormal_Bit3,
-				Module_Voltage_Overvoltage_Abnormal_Bit4, Module_Voltage_Overvoltage_Abnormal_Bit5,
-				Module_Voltage_Overvoltage_Abnormal_Bit6, Module_Voltage_Overvoltage_Abnormal_Bit7,
-				Module_Capacity_Abnormal_Bit0, Module_Capacity_Abnormal_Bit1,
-				Module_Capacity_Abnormal_Bit2, Module_Capacity_Abnormal_Bit3,
-				Module_Capacity_Abnormal_Bit4, Module_Capacity_Abnormal_Bit5,
-				Module_Capacity_Abnormal_Bit6, Module_Capacity_Abnormal_Bit7,
-				Voltage_Equalization_Fault, Voltage_Sampling_Error, Temperature_Sampling_Error,
-				Abnormal_Voltage_Data,
-				Module_Voltage_Overvoltage_Warning_Bit0, Module_Voltage_Overvoltage_Warning_Bit1,
-				Module_Voltage_Overvoltage_Warning_Bit2, Module_Voltage_Overvoltage_Warning_Bit3,
-				Module_Voltage_Overvoltage_Warning_Bit4, Module_Voltage_Overvoltage_Warning_Bit5,
-				Module_Voltage_Overvoltage_Warning_Bit6, Module_Voltage_Overvoltage_Warning_Bit7){
+	setting(id, Module_Voltage, Module_Capacitance_Temperature, Module_Board_Temperature){
 		console.log("...setting data1...");
+		this.id = id;
 		this.Module_Voltage = Module_Voltage;											//int16
 		this.Module_Capacitance_Temperature = Module_Capacitance_Temperature;			//int8
 		this.Module_Board_Temperature = Module_Board_Temperature;						//int8
-		this.Module_Voltage_Overvoltage_Abnormal_Bit0 = Module_Voltage_Overvoltage_Abnormal_Bit0;//int8
-		this.Module_Voltage_Overvoltage_Abnormal_Bit1 = Module_Voltage_Overvoltage_Abnormal_Bit1;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit2 = Module_Voltage_Overvoltage_Abnormal_Bit2;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit3 = Module_Voltage_Overvoltage_Abnormal_Bit3;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit4 = Module_Voltage_Overvoltage_Abnormal_Bit4;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit5 = Module_Voltage_Overvoltage_Abnormal_Bit5;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit6 = Module_Voltage_Overvoltage_Abnormal_Bit6;
-		this.Module_Voltage_Overvoltage_Abnormal_Bit7 = Module_Voltage_Overvoltage_Abnormal_Bit7;
-		this.Module_Capacity_Abnormal_Bit0 = Module_Capacity_Abnormal_Bit0;				//int8
-		this.Module_Capacity_Abnormal_Bit1 = Module_Capacity_Abnormal_Bit1;
-		this.Module_Capacity_Abnormal_Bit2 = Module_Capacity_Abnormal_Bit2;
-		this.Module_Capacity_Abnormal_Bit3 = Module_Capacity_Abnormal_Bit3;
-		this.Module_Capacity_Abnormal_Bit4 = Module_Capacity_Abnormal_Bit4;
-		this.Module_Capacity_Abnormal_Bit5 = Module_Capacity_Abnormal_Bit5;
-		this.Module_Capacity_Abnormal_Bit6 = Module_Capacity_Abnormal_Bit6;
-		this.Module_Capacity_Abnormal_Bit7 = Module_Capacity_Abnormal_Bit7;
-		this.Voltage_Equalization_Fault = Voltage_Equalization_Fault;					//bool
-		this.Voltage_Sampling_Error = Voltage_Sampling_Error;							//bool
-		this.Temperature_Sampling_Error = Temperature_Sampling_Error;					//bool
-		this.Abnormal_Voltage_Data = Abnormal_Voltage_Data;								//bool
-		this.Module_Voltage_Overvoltage_Warning_Bit0 = Module_Voltage_Overvoltage_Warning_Bit0;//int8
-		this.Module_Voltage_Overvoltage_Warning_Bit1 = Module_Voltage_Overvoltage_Warning_Bit1;
-		this.Module_Voltage_Overvoltage_Warning_Bit2 = Module_Voltage_Overvoltage_Warning_Bit2;
-		this.Module_Voltage_Overvoltage_Warning_Bit3 = Module_Voltage_Overvoltage_Warning_Bit3;
-		this.Module_Voltage_Overvoltage_Warning_Bit4 = Module_Voltage_Overvoltage_Warning_Bit4;
-		this.Module_Voltage_Overvoltage_Warning_Bit5 = Module_Voltage_Overvoltage_Warning_Bit5;
-		this.Module_Voltage_Overvoltage_Warning_Bit6 = Module_Voltage_Overvoltage_Warning_Bit6;
-		this.Module_Voltage_Overvoltage_Warning_Bit7 = Module_Voltage_Overvoltage_Warning_Bit7;
 	}
 }
 
-var data1 = new Data1(0,0,0,
-					false,false,false,false,false,false,false,false,
-					false,false,false,false,false,false,false,false,
-					false,false,false,false,
-					false,false,false,false,false,false,false,false,);
+var data1 = new Data1(0,0,0,0);
 
 class Data2{
 	constructor(Module_Block_Voltage1, Module_Block_Voltage2,
@@ -318,75 +231,20 @@ var data5 = new Data5(0,0,0,0,0)
 
 
 class Data6{
-	constructor(Energy_storage_voltage, Energy_storage_current, Energy_storage_power_state, 
-				Energy_Storage_Power_State, Positive_Fuse_Failure, Negative_Fuse_Failure, 
-				Isolated_Power_Failure, Surge_Protector_Failure, Complete_Equivalent_Charge_Sign,
-				Fan_failure1, Fan_failure2, Fan_failure3, Fan_failure4, Fan_failure5, Fan_failure11,
-				Fan_failure6, Fan_failure7, Fan_failure8, Fan_failure9, Fan_failure10, Fan_failure12,
-				Fan_Open_Sign1, Fan_Open_Sign2, Fan_Open_Sign3
-				){
+	constructor(Energy_storage_voltage, Energy_storage_current, Energy_Storage_Temperature){
+		//this.id = id;
 		this.Energy_storage_voltage = Energy_storage_voltage;					//int16
 		this.Energy_storage_current = Energy_storage_current;					//int16
-		this.Energy_storage_power_state = Energy_storage_power_state;			//int8
-		this.Energy_Storage_Power_State = Energy_Storage_Power_State;
-		this.Positive_Fuse_Failure = Positive_Fuse_Failure;
-		this.Negative_Fuse_Failure = Negative_Fuse_Failure;
-		this.Isolated_Power_Failure = Isolated_Power_Failure;
-		this.Surge_Protector_Failure = Surge_Protector_Failure;
-		this.Complete_Equivalent_Charge_Sign = Complete_Equivalent_Charge_Sign;
-		this.Fan_failure1 = Fan_failure1;										//int8
-		this.Fan_failure2 = Fan_failure2;
-		this.Fan_failure3 = Fan_failure3;
-		this.Fan_failure4 = Fan_failure4;
-		this.Fan_failure5 = Fan_failure5;
-		this.Fan_failure6 = Fan_failure6;
-		this.Fan_failure7 = Fan_failure7;
-		this.Fan_failure8 = Fan_failure8;
-		this.Fan_failure9 = Fan_failure9;
-		this.Fan_failure10 = Fan_failure10;
-		this.Fan_failure11 = Fan_failure11;
-		this.Fan_failure12 = Fan_failure12;										//int8
-		this.Fan_Open_Sign1 = Fan_Open_Sign1;
-		this.Fan_Open_Sign2 = Fan_Open_Sign2;
-		this.Fan_Open_Sign3 = Fan_Open_Sign3;
+		this.Energy_Storage_Temperature = Energy_Storage_Temperature;			//int8
 	}
 
-	setting(Energy_storage_voltage, Energy_storage_current, Energy_storage_power_state, 
-				Energy_Storage_Power_State, Positive_Fuse_Failure, Negative_Fuse_Failure, 
-				Isolated_Power_Failure, Surge_Protector_Failure, Complete_Equivalent_Charge_Sign,
-				Fan_failure1, Fan_failure2, Fan_failure3, Fan_failure4, Fan_failure5, Fan_failure11,
-				Fan_failure6, Fan_failure7, Fan_failure8, Fan_failure9, Fan_failure10, Fan_failure12,
-				Fan_Open_Sign1, Fan_Open_Sign2, Fan_Open_Sign3){
+	setting(Energy_storage_voltage, Energy_storage_current, Energy_Storage_Temperature){
 		console.log("...setting data6...");
+		//this.id = id;
 		this.Energy_storage_voltage = Energy_storage_voltage;					//int16
 		this.Energy_storage_current = Energy_storage_current;					//int16
-		this.Energy_storage_power_state = Energy_storage_power_state;			//int8
-		this.Energy_Storage_Power_State = Energy_Storage_Power_State;
-		this.Positive_Fuse_Failure = Positive_Fuse_Failure;
-		this.Negative_Fuse_Failure = Negative_Fuse_Failure;
-		this.Isolated_Power_Failure = Isolated_Power_Failure;
-		this.Surge_Protector_Failure = Surge_Protector_Failure;
-		this.Complete_Equivalent_Charge_Sign = Complete_Equivalent_Charge_Sign;
-		this.Fan_failure1 = Fan_failure1;										//int8
-		this.Fan_failure2 = Fan_failure2;
-		this.Fan_failure3 = Fan_failure3;
-		this.Fan_failure4 = Fan_failure4;
-		this.Fan_failure5 = Fan_failure5;
-		this.Fan_failure6 = Fan_failure6;
-		this.Fan_failure7 = Fan_failure7;
-		this.Fan_failure8 = Fan_failure8;
-		this.Fan_failure9 = Fan_failure9;
-		this.Fan_failure10 = Fan_failure10;
-		this.Fan_failure11 = Fan_failure11;
-		this.Fan_failure12 = Fan_failure12;										//int8
-		this.Fan_Open_Sign1 = Fan_Open_Sign1;
-		this.Fan_Open_Sign2 = Fan_Open_Sign2;
-		this.Fan_Open_Sign3 = Fan_Open_Sign3;
+		this.Energy_Storage_Temperature = Energy_Storage_Temperature;			//int8
 	}
 }
 
-var data6 = new Data6(0,0,0,
-					false,false,false,false,false,false,
-					false,false,false,false,false,false,
-					false,false,false,false,false,false,
-					false,false,false);
+var data6 = new Data6(0,0,0);
