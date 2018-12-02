@@ -8,11 +8,15 @@ $(function () {
     // console.log(new Date().toString());
     // console.log(times.toString());
 
-    var voltData = [0,0,0,0,0,0,0,0,0,0]        //电压数据
-    var currentData = [0,0,0,0,0,0,0,0,0,0]   //电流数据
-    var tempData = [0,0,0,0,0,0,0,0,0,0]     //温度数据
+    var voltData = [0,0,0,0,0,0,0,0,0,0,
+					0,0,0,0,0,0,0,0,0,0]        //电压数据
+    var currentData = [0,0,0,0,0,0,0,0,0,0,
+						0,0,0,0,0,0,0,0,0,0]   //电流数据
+    var tempData = [0,0,0,0,0,0,0,0,0,0,
+					0,0,0,0,0,0,0,0,0,0]     //温度数据
 
-    var date = [0,0,0,0,0,0,0,0,0,0]
+    var date = [0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0]
 
     var VoltChart = echarts.init(document.getElementById('oneVPhoto'));//电压图
     // tian chong shu ju
@@ -69,9 +73,9 @@ $(function () {
         date.push(dto);
 
         voltData.shift();
-        voltData.push(msgJson.Energy_Storage_Voltage);
+        voltData.push(msgJson.Energy_storage_voltage);
         currentData.shift();
-        currentData.push(msgJson.Energy_Storage_Current);
+        currentData.push(msgJson.Energy_storage_current);
         tempData.shift();
         tempData.push(msgJson.Energy_Storage_Temperature);
 
