@@ -10,23 +10,93 @@
     <link href="../../js/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
-    <script href="../../js/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script href="../../js/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js"></script>
-    <link rel="stylesheet" href="../../js/bootstrap-select/dist/css/bootstrap-select.min.css" />
+    <script href="../../js/bootstrap-select-1.13.2/dist/js/bootstrap-select.min.js"></script>
+    <script href="../../js/bootstrap-select-1.13.2/dist/js/i18n/defaults-zh_CN.min.js"></script>
+    <link rel="stylesheet" href="../../js/bootstrap-select-1.13.2/dist/css/bootstrap-select.min.css" />
     <link href="../../js/bootstrap-3.3.7-dist/css/bootstrap-switch.min.css" rel="stylesheet" />
     <script src="../../js/bootstrap-3.3.7-dist/js/bootstrap-switch.min.js"></script>
     
     <script type="text/javascript">
+
+    function fill_with_data1(data){
+        var time_box = document.getElementById("time_text");
+        var box1_2 = document.getElementById("box1_2");
+        var box2_2 = document.getElementById("box2_2");
+        var box3_2 = document.getElementById("box3_2");
+        var box4_2 = document.getElementById("box4_2");
+        // var box5_2 = document.getElementById("box5_2");
+        // var box6_2 = document.getElementById("box6_2");
+        // var box7_2 = document.getElementById("box7_2");
+        // var box8_2 = document.getElementById("box8_2");
+
+        time_box.value = currentTime();
+        box1_2.value = data.Module_Block_Voltage1;
+        box2_2.value = data.Module_Block_Voltage2;
+        box3_2.value = data.Module_Block_Voltage3;
+        box4_2.value = data.Module_Block_Voltage4;
+    }
+
+    function fill_with_data2(data){
+        var time_box = document.getElementById("time_text");
+        // var box1_2 = document.getElementById("box1_2");
+        // var box2_2 = document.getElementById("box2_2");
+        // var box3_2 = document.getElementById("box3_2");
+        // var box4_2 = document.getElementById("box4_2");
+        var box5_2 = document.getElementById("box5_2");
+        var box6_2 = document.getElementById("box6_2");
+        var box7_2 = document.getElementById("box7_2");
+        var box8_2 = document.getElementById("box8_2");
+
+        time_box.value = currentTime();
+        box5_2.value = data.Module_Block_Voltage5;
+        box6_2.value = data.Module_Block_Voltage6;
+        box7_2.value = data.Module_Block_Voltage7;
+        box8_2.value = data.Module_Block_Voltage8;
+    }
+
+    function currentTime(){
+        var d = new Date();
+        var minute = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
+        var second = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
+
+        var dto = [d.getHours(), minute, second].join(':');
+
+        return dto
+    }
+
+    var id_flag = 0;
+
     function deal_data2(data){
-		deal2(data);
+		//deal2(data);
+        if (id_flag == data.id){
+            deal2(data);
+            fill_with_data1(data);
+        }else{
+            console.log("id_flag: " + id_flag);
+            console.log("no match data!");
+        }  
 	};
 	function deal_data3(data){
-		deal3(data);
+		//deal3(data);
+        if (id_flag = data.id){
+            deal3(data);
+            fill_with_data2(data);
+        }else{
+            console.log("id_flag: " + id_flag);
+            console.log("no match data!");
+        }
 	};
+
 	function deal_data4(data){
 		deal4(data);
 	};
 	
+    function select_click(){
+        var options=$("#selection option:selected");
+        //alert(options.val());
+        id_flag = options.val();
+    }
+
     function change_state(statedata1, statedata2, statedata3, statedata4, statedata5){
         var state1 = document.getElementById("1connected");
         var state2 = document.getElementById("2connected");
@@ -185,7 +255,57 @@
 <body>
 <div>
 	<div class="title">一号电源————模块状况</div>
+
 	<div class="container">
+        <div class="col-md-3">
+            <select class="custom-select" id="selection" onclick="select_click()">
+              <option selected>Open this select menu</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+              <option value="32">32</option>
+              <option value="33">33</option>
+              <option value="34">34</option>
+              <option value="35">35</option>
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38">38</option>
+              <option value="39">39</option>
+              <option value="40">40</option>
+              <option value="41">41</option>
+              <option value="42">42</option>
+              <option value="43">43</option>
+            </select>
+        </div>
     	<!--电压图-->
 		<div class="voltageHigh">
 			<div class="VHchartPhoto" id="oneModVoltPhoto">电压图</div>
@@ -196,40 +316,40 @@
         	<div id="text_currenttime">当前</div>
 			
             <!--当前时间-->
-	        <div id="time_text" style="position:relative;top:5px;left:10%;font-size:20px;font-weight:800;">时间</div>
-			<input type="text" style="width:100px;height:30px;position:relative;top:-22px;left:15%;background-color:#CCC;border-color:black;font-size:25px;text-align:center;"/>
+	        <div style="position:relative;top:5px;left:10%;font-size:20px;font-weight:800;">时间</div>
+			<input id="time_text" type="text" style="width:100px;height:30px;position:relative;top:-22px;left:15%;background-color:#CCC;border-color:black;font-size:25px;text-align:center;"/>
 			
             <!--8个模块框-->
 			<div id="box1" style="position:relative;top:-50px;left:40%;">
-				<input id="box1_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box1_1" value="1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box1_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box2" style="position:relative;top:-75px;left:65%;">
-				<input id="box2_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box2_1" value="2" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box2_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box3" style="position:relative;top:-50px;left:15%;">
-				<input id="box3_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box3_1" value="3" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box3_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box4" style="position:relative;top:-75px;left:40%;">
-				<input id="box4_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box4_1" value="4" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box4_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box5" style="position:relative;top:-100px;left:65%;">
-				<input id="box5_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box5_1" value="5" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box5_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box6" style="position:relative;top:-75px;left:15%;">
-				<input id="box6_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box6_1" value="6" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box6_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box7" style="position:relative;top:-100px;left:40%;">
-				<input id="box7_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box7_1" value="7" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box7_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>
 			<div id="box8" style="position:relative;top:-125px;left:65%;">
-				<input id="box8_1" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
+				<input id="box8_1" value="8" style="width:50px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 				<input id="box8_2" style="width:100px;height:25px;background-color:#CCC;border-color:black;font-size:15px;text-align:center;"/>
 			</div>   
         </div>
