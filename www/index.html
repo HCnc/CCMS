@@ -47,8 +47,8 @@
 
   // Create a connection to the rosbridge WebSocket server.
   //ros.connect('ws://localhost:8888');
-  //ros.connect('ws://222.241.204.92:8888');
-	ros.connect('ws://192.168.0.3:8888');
+  //ros.connect('ws://222.241.205.86:8888');
+	ros.connect('ws://192.168.0.100:8888');
   
   var send_data = new ROSLIB.Topic({
     ros : ros,
@@ -76,16 +76,23 @@
   });
   d1_data.subscribe(function(message) {
       console.log('in d1_data');
-      data1.setting(message.id,
-          message.Module_Voltage,                                  
-                   message.Module_Capacitance_Temperature);
+      //2
+      var data1 = {
+        id : message.id,
+        Module_Voltage : message.Module_Voltage,
+        Module_Capacitance_Temperature : message.Module_Capacitance_Temperature
+      };
+	  console.log("data1: " + data1);
       try{
-        child.window.deal_data1(data1);
+        child.window.deal_data_p(data1);
+		//child.window.deal();
       }catch(err){
         console.log(err);
         console.log(err.message);
       }
+
       try{
+        //4
         child.window.error1(message.module_overvolt_abnormal, message.module_capacity_abnormal, message.other_data_bit, message.module_overvolt_warming);
       }catch(err){
         console.log(err);
@@ -100,10 +107,11 @@
   });
 	d2_data.subscribe(function(message) {
 			console.log('in d2_data');
+      //2
 			data = [message.Module_Block_Voltage1, message.Module_Block_Voltage2,
 							message.Module_Block_Voltage3, message.Module_Block_Voltage4];
       try{
-        child.window.deal_data2(data);
+        child.window.deal_data_p3(message.id, data);
       }catch(err){
         console.log(err);
         console.log(err.message);
@@ -117,10 +125,11 @@
   });
 	d3_data.subscribe(function(message) {
 			console.log('in d3_data');
+      //2
 			data = [message.Module_Block_Voltage5, message.Module_Block_Voltage6,
 							message.Module_Block_Voltage7, message.Module_Block_Voltage8];
       try{
-        child.window.deal_data3(data);
+        child.window.deal_data_p4(message.id, data);
       }catch(err){
         console.log(err);
         console.log(err.message);
@@ -134,18 +143,17 @@
   });
 	d4_data.subscribe(function(message) {
 			console.log('in d4_data');
+      //4
 			try{
-				child.window.error2(message.undervolt_warning);
+				child.window.error2(message.undervolt_warning, message.resistance_abnormality, message.undervolt_alarm,
+                            message.low_volt_alarm);
 			}catch(err){
 				console.log(err);
 				console.log(err.message);
 			}
+
 			try{
-				child.window.deal_data4(message.voltage_equal_state,
-                              message.Other_data,
-                              message.resistance_abnormality,
-                              message.undervolt_alarm,
-                              message.low_volt_alarm);
+				child.window.deal_data_state(message.voltage_equal_state, message.Other_data);
 			}catch(err){
 				console.log(err);
 				console.log(err.message);
@@ -159,17 +167,30 @@
   });
   d5_data.subscribe(function(message){
     console.log("in d5_data");
-    data5.setting(message.Balanced_data_number,
-                  message.Modules_Above_Threshold_Voltage,
-                  message.Moduel_Average_Voltage,
-                  message.Module_Voltage_Threshold,
-                  message.Minimum_Module_Voltage)
+
+    //1
+    var data5 = {
+      Balanced_data_number : message.Balanced_data_number,
+      Modules_Above_Threshold_Voltage : message.Modules_Above_Threshold_Voltage,
+      Moduel_Average_Voltage : message.Moduel_Average_Voltage,
+      Module_Voltage_Threshold : message.Module_Voltage_Threshold,
+      Minimum_Module_Voltage : message.Minimum_Module_Voltage
+    };
+
     try{
-      child.window.deal_data5(data5);
+      child.window.deal_data_p5(data5);
     }catch(err){
       console.log(err);
       console.log(err.message);
     }
+
+    try{
+      child.window.deal_data_avg(data5);
+    }catch(err){
+      console.log(err);
+      console.log(err.message);
+    }
+
   });
 
   
@@ -180,12 +201,22 @@
   });
 	d6_data.subscribe(function(message) {
 			console.log('in d6_data');
-			data6.setting(
-				   message.Energy_Storage_Voltage,                                  
-                   message.Energy_Storage_Current,                      
-                   message.Energy_Storage_Temperature);
+      //1
+     var data6 = {
+        Energy_Storage_Voltage : message.Energy_Storage_Voltage,
+        Energy_Storage_Current : message.Energy_Storage_Current,
+        Energy_Storage_Temperature : message.Energy_Storage_Temperature
+     };
+
      try{
-        child.window.deal_data6(data6, message.Fandata, message.otherdata, message.FanAccident, message.Fandata);
+        child.window.deal_data6(data6, message.Fandata, message.otherdata);
+     }catch(err){
+        console.log(err);
+        console.log(err.message);
+     }
+
+     try{
+        child.window.error3(message.otherdata, message.FanAccident, message.Fandata);
      }catch(err){
         console.log(err);
         console.log(err.message);
@@ -193,17 +224,49 @@
 	});
 
 
+  var batteryDetect = new ROSLIB.Topic({
+    ros : ros,
+    name : '/battery_detect',
+    messageType : 'ccms_pro/BatterResult'
+  });
+  batteryDetect.subscribe(function(message){
+    //int16 batteryID
+    //int16 batteryhealth 
+    //time stamp
+    console.log("in batteryDetect");
+    child.window.health1(message.batteryID, message.batteryhealth);
+  });
 
+  var moduleDetect = new ROSLIB.Topic({
+    ros : ros,
+    name : '/module_detect',
+    messageType : 'ccms_pro/ModuleResult'
+  });
+  moduleDetect.subscribe(function(message){
+    //int16 modID
+    //int16 modulehealth
+    //time stamp
+    console.log("in moduleDetect");
+    var data = {
+      id : message.modID,
+      healthdata : message.modulehealth,
+    };
+    child.window.health2(data);
+  });
 
-  var detect = new ROSLIB.Topic({
+  var blockDetect = new ROSLIB.Topic({
     ros : ros,
     name : '/block_detect',
     messageType : 'ccms_pro/BlockResult'
   });
-
-  detect.subscribe(function(message){
-    console.log("in detect");
+  blockDetect.subscribe(function(message){
+    //int16 modID
+    //uint16[] blockhealths 
+    //time stamp
+    console.log("in blockDetect");
+    child.window.health3(message.modID, message.blockhealths);
   });
+
 
   var addTwoIntsClient = new ROSLIB.Service({
     ros : ros,
@@ -321,9 +384,9 @@
                        <ul>
                            <li _link="./html/now/onePowerNow.html">电源监控</li>
                            <li _link="./html/now/onePowerMod.html">模组监控</li>
-                           <li _link="./html/now/onePowerModSinglenow.html">模块监控</li>
+                           <!-- <li _link="./html/now/onePowerModSinglenow(buyao).html">不要了（模块监控）</li> -->
                            <li _link="./html/now/onePowerModHealth.html">模组健康状况</li>
-                           <li _link="./html/now/onePowerModnow.html">模组总体状况</li>
+                           <!-- <li _link="./html/now/onePowerModnow(buyao).html">不要了（模组总体状况）</li> -->
                            <li _link="./html/now/onePowerError.html">异常/预警信号</li>
                        </ul>
                    </dd>

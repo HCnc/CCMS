@@ -1,6 +1,3 @@
-/**
- * Created by 许东 on 2017/9/27.
- */
 
 $(function () {
     // var myData = new Date().getTime(); 
@@ -18,45 +15,16 @@ $(function () {
     var date = [0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0]
 
-    var VoltChart = echarts.init(document.getElementById('oneVPhoto'));//电压图
-    // tian chong shu ju
-    // for (var ii = 0; ii < 15; ii++) {
-    //     voltData.push({
-    //         name: ((new Date().getTime())/100).toString(),//new Date().toString(),
-    //         value: [
-    //             [0, 0, 0].join('/')+" "+
-    //             [0,0,0].join(':'),
-    //             1
-    //         ]
-    //     });//先在其中放15个数据,占位
-    //     currentData.push({
-    //         name: new Date().toString(),
-    //         value: [
-    //             [0, 0, 0].join('/')+" "+
-    //             [0,0,0].join(':'),
-    //             1
-    //         ]
-    //     })
-    //     tempData.push({
-    //         name: new Date().toString(),
-    //         value: [
-    //             [0, 0, 0].join('/')+" "+
-    //             [0,0,0].join(':'),
-    //             1
-    //         ]
-    //     })
-    // }
-
-
-
-    deal = function(data){
+    var VoltChart1 = echarts.init(document.getElementById('oneVPhoto'));//电压图
+    
+	
+    deal1 = function(data){
         console.log("...onePowerNow is working...");
-        //console.log(data6);
-        dealMsg(data);
+        dealMsg1(data);
     }
 
-    dealMsg = function(evt) {
-        var d = new Date()      //TTTTTTTTTTTTTTTTTTT
+    dealMsg1 = function(evt) {
+        var d = new Date();
         var minute = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
         var second = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
 
@@ -73,64 +41,25 @@ $(function () {
         date.push(dto);
 
         voltData.shift();
-        voltData.push(msgJson.Energy_storage_voltage);
+        voltData.push(msgJson.Energy_Storage_Voltage);
         currentData.shift();
-        currentData.push(msgJson.Energy_storage_current);
+        currentData.push(msgJson.Energy_Storage_Current);
         tempData.shift();
         tempData.push(msgJson.Energy_Storage_Temperature);
+		
+            voltOption1.series[0].data = voltData
+        
+            voltOption1.series[1].data = currentData
+        
+            voltOption1.series[2].data = tempData
 
+            VoltChart1.setOption(voltOption1);
 
-        // if (true/*msgJson.RealTime_PowerState_PowerID1*/){
-
-        //     voltData.shift();
-        //     console.log("dataSSS是************" + voltData[3].value.toString())
-
-        //     //var dto = [d.getFullYear(), d.getMonth(), d.getDate()].join('/') + " " + [d.getHours(), minute, second].join(':');
-        //     voltData.push({
-        //         name: "test_name",//new Date().toString(),//msgJson.RealTime_PowerState_PowerID1.time.toString(),
-        //         value: [
-        //             [d.getFullYear(), d.getMonth(), d.getDate()].join('/') + " " + 
-        //             [d.getHours(), minute, second].join(':'),
-        //             // timeBoxopop[2], timeBoxopop[0], timeBoxopop[1]].join('/')+" "+[timeBox[1]],
-        //             //msgJson.RealTime_PowerState_PowerID1.CMSVolt
-        //             msgJson.Module_Voltage
-        //         ]
-        //     });
-            voltOption.series[0].data = voltData
-
-        //     currentData.shift()
-        //     currentData.push({
-        //         name: "secend_name",//msgJson.RealTime_PowerState_PowerID1.time.toString(),
-        //         value: [
-        //             [d.getFullYear(), d.getMonth(), d.getDate()].join('/') + " " + 
-        //             [d.getHours(), minute, second].join(':'),
-        //             // timeBoxopop[2], timeBoxopop[0], timeBoxopop[1]].join('/')+" "+[timeBox[1]],
-        //             //msgJson.RealTime_PowerState_PowerID1.CMSCur
-        //             msgJson.Module_Capacitance_Temperature
-        //         ]
-        //     })
-            voltOption.series[1].data = currentData
-
-        //     tempData.shift()
-        //     tempData.push({
-        //         name: "third_name",//msgJson.RealTime_PowerState_PowerID1.time.toString(),
-        //         value: [
-        //             [d.getFullYear(), d.getMonth(), d.getDate()].join('/') + " " + 
-        //             [d.getHours(), minute, second].join(':'),
-        //             // timeBoxopop[2], timeBoxopop[0], timeBoxopop[1]].join('/')+" "+[timeBox[1]],
-        //             //msgJson.RealTime_PowerState_PowerID1.CMSTemp
-        //             msgJson.Module_Board_Temperature
-        //         ]
-        //     })
-            voltOption.series[2].data = tempData
-
-            VoltChart.setOption(voltOption);
-        // }
     }
 
-    var colors = ['#00FF00', '#FF0000', '#00FFFF'];
+    var colors = ['#FF0000', '#00FF00', '#00FFFF'];
 
-    voltOption = {
+    voltOption1 = {
 
 		backgroundColor:'#000000',
 
@@ -138,36 +67,20 @@ $(function () {
             trigger: 'axis'
         },
 
-        // legend: {
-        //     data:['电压','电流','温度'],
-        //     //data:['电压'],
-        //     // itemWidth:10,//图例的宽度
-        //     // itemHeight:10,//图例的高度
-        //      textStyle:{//图例文字的样式
-        //          fontSize:16,
-        //          //color:['#00FF00','#FF0000','#00FFFF'],
-        //          color:colors,
-        //      }
-        // },
-
+       
         legend: {
             data:[ {name: '电压',
-                 textStyle:{color:"yellow"}
+                 textStyle:{color:"#FF0000"}
                    },
                   {name:'电流',
-                  textStyle:{color:"yellow"}
+                  textStyle:{color:"#00FF00"}
                   },
               {name:'温度',
-                  textStyle:{color:"yellow"}
+                  textStyle:{color:"#00FFFF"}
                   }
               ],
         },
-        // grid: {
-        //     left: '3%',
-        //     right: '4%',
-        //     bottom: '3%',
-        //     containLabel: true
-        // },
+       
 
         xAxis: {
             type: 'category',
@@ -185,11 +98,11 @@ $(function () {
             {
                 type: 'value',
                 boundaryGap: [0, '100%'],
-                name: 'Volt',
+                name: '电压/V',
                 axisLine:{
                     lineStyle:{
                         show:true,
-                        color:colors[0],
+                        color:"#00FF00",
                         width:1,//这里是为了突出显示加上的
                     }
                 },
@@ -200,10 +113,10 @@ $(function () {
             {
                 type: 'value',
                 //scale: true,
-                name: 'Ampere/Temperature',
+                name: '电流/A，温度/℃',
                 axisLine: {
                     lineStyle: {
-                        color: colors[0],
+                        color:"#00FF00",
                     }
                 },
                 splitLine: {
@@ -217,58 +130,174 @@ $(function () {
             {
                 name: '电压',
                 type: 'line',
-                //showSymbol: false,
-                //hoverAnimation: false,
+                
                 data: voltData,
-                itemStyle:{normal:{color:'red'}},
-                //smooth:true,
-                // itemStyle : {
-                //     normal : {
-                //         lineStyle:{
-                //             color:colors[0]
-                //         }
-                //     }
-                // },
+                itemStyle:{normal:{color:'#FF0000'}},             
             },
             
             {
                 name: '电流',
-                type: 'line',
-                //showSymbol: false,
-                //hoverAnimation: false,
+                type: 'line',              
                 data: currentData,
-                itemStyle:{normal:{color:'green'}},
-                //smooth:true,
-                yAxisIndex: 1,
-                // itemStyle : {
-                //     normal : {
-                //         lineStyle:{
-                //             color:colors[1]
-                //         }
-                //     }
-                // },
+                itemStyle:{normal:{color:'00FF00'}},             
+                yAxisIndex: 1,             
             },
 
             {
                 name: '温度',
-                type: 'line',
-                //showSymbol: false,
-                //hoverAnimation: false,
+                type: 'line',              
                 data: tempData,
-                itemStyle:{normal:{color:'blue'}},
-                //smooth:true,
-                yAxisIndex: 1,
-                // itemStyle : {
-                //     normal : {
-                //         lineStyle:{
-                //             color:colors[2]
-                //         }
-                //     }
-                // },
+                itemStyle:{normal:{color:'#00FFFF'}},               
+                yAxisIndex: 1,              
             }
         ]
                   
     };
-    VoltChart.setOption(voltOption);
+    VoltChart1.setOption(voltOption1);
 
+/*模组总体状况数据*/
+    var voltData = [0,0,0,0,0,0,0,0,0,0,
+					0,0,0,0,0,0,0,0,0,0]        //电压数据
+    var odMuMinModVolt = [0,0,0,0,0,0,0,0,0,0,
+						  0,0,0,0,0,0,0,0,0,0]   //最低模组电压
+    var odMuHigherNbr = [0,0,0,0,0,0,0,0,0,0,
+						 0,0,0,0,0,0,0,0,0,0]     //高于阈值电压的个数
+	var date2 = [0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0]
+    var VoltChart = echarts.init(document.getElementById('oneModVoltPhoto'));//电压图
+	
+    deal2 = function(data){
+        console.log("...onePowerModNow is working...");
+        dealMsg2(data);
+    }
+
+    dealMsg2 = function(evt){
+
+        var d=new Date();
+        var minute=d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes();
+        var second=d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds();
+
+		var dto = [d.getHours(), minute, second].join(':');
+
+        var msgJson = evt;//JSON.parse(str)
+		console.log("msgJson data5 " + msgJson.Moduel_Average_Voltage)
+        
+		date2.shift();
+        date2.push(dto);
+
+            voltData.shift();
+            //console.log("dataSSS是************" + voltData[3].value.toString())
+            voltData.push(msgJson.Moduel_Average_Voltage);
+            voltOption.series[0].data = voltData
+
+            odMuMinModVolt.shift()
+            odMuMinModVolt.push(msgJson.Minimum_Module_Voltage)
+            voltOption.series[1].data = odMuMinModVolt
+
+            odMuHigherNbr.shift()
+            odMuHigherNbr.push(msgJson.Module_Voltage_Threshold)
+            voltOption.series[2].data = odMuHigherNbr
+            VoltChart.setOption(voltOption)
+    }
+
+
+
+    voltOption = {
+        backgroundColor:'#000000',
+        tooltip: {
+            trigger: 'axis'
+        },
+		legend: {
+            data:[ {name: '平均电压',
+                 textStyle:{color:"#FF0000"}
+                   },
+                  {name:'最低电压',
+                  textStyle:{color:"#00FF00"}
+                  },
+              {name:'最大电压',
+                  textStyle:{color:"#00FFFF"}
+                  }
+              ],
+        },
+        xAxis: {
+            type: 'category',
+			boundaryGap: false,
+			data: date2,
+            axisLabel:{
+                rotate:-30
+            },
+            axisLine:{
+                lineStyle:{
+                    show:true,
+                    color:'#00FF00',
+                    width:1,//这里是为了突出显示加上的
+                }
+            },
+
+            //interval: 1000*2
+
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            axisLine:{
+                lineStyle:{
+                    show:true,
+                    color:'#00FF00',
+                    width:1,//这里是为了突出显示加上的
+                }
+            },
+            splitLine: {
+                    show: false
+                }
+        },
+        series: [{
+            name: '平均电压',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: voltData,
+            smooth:true,
+            itemStyle : {
+                normal : {
+                    lineStyle:{
+                        color:'#FF0000'
+                    }
+                }
+            },
+        },
+            {
+                name: '最低电压',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: odMuMinModVolt,
+                smooth:true,
+                itemStyle : {
+                    normal : {
+                        lineStyle:{
+                            color:'#00FF00'
+                        }
+                    }
+                },
+            },
+            {
+                name: '最大电压',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: odMuHigherNbr,
+                smooth:true,
+                itemStyle : {
+                    normal : {
+                        lineStyle:{
+                            color:'#00FFFF'
+                        }
+                    }
+                },
+            }
+            ]
+    };
+    VoltChart.setOption(voltOption);
 })
+

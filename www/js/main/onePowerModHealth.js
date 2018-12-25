@@ -4,7 +4,7 @@
  */
 
 $(function () {
-    var healthData = [1,-1,0,0,0,0,0,0,0,0,
+    var healthData = [0,0,0,0,0,0,0,0,0,0,
                  0,0,0,0,0,0,0,0,0,0,
                  0,0,0,0,0,0,0,0,0,0,
                  0,0,0,0,0,0,0,0,0,0,
@@ -32,7 +32,7 @@ $(function () {
 
     dealMsg = function(data){
         id = data.id;
-        healthData[id] = data
+        healthData[id-1] = data.healthdata;
         // tempData[id] = data;
         // voltData[id] = data;
         // voltOption.series[0].data = tempData;
@@ -53,8 +53,12 @@ $(function () {
     },
     legend: {
         data:[{name:'Health',
-                textStyle:{color:"yellow"}
-            }]
+                textStyle:{color:"#00FF00"}},  /*健康*/
+				/*{name:'Sub-Health',
+                textStyle:{color:"#FFA500"}},  /*亚健康*/
+				/*{name:'Fault',
+                textStyle:{color:"#FF0000"}},*/  /*不健康*/
+			]
     },
     toolbox: {
         show: true,
@@ -107,7 +111,29 @@ $(function () {
                 }
             },
             data:healthData
-        }
+        },
+		/*{
+            name:'Sub-Health',
+            type:'bar',
+            // yAxisIndex: 1,
+            itemStyle : {
+                normal : {
+                    color:'#FFA500'
+                }
+            },
+            data:sub-healthData
+        },
+		{
+            name:'Fault',
+            type:'bar',
+            // yAxisIndex: 1,
+            itemStyle : {
+                normal : {
+                    color:'#00FFFF'
+                }
+            },
+            data:faultData
+        }*/
     ]
     };
     VoltChart.setOption(voltOption);
